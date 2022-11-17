@@ -4,8 +4,19 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Image Board</title>
+        <link rel="stylesheet" type="text/css" href="public/css/styles.css" media=”screen” />
     </head>
     <body>
+        <div id="main">
+            <h1>Photo Gallery</h1>
+  
+  <ul>
+    <li v-for="image of images">
+      <img v-bind:src="image.url" alt="">
+      {{ image.title }} 
+    </li>
+  </ul>
+        </div>
         <script
             src="/js/app.js"
             type="module"
