@@ -1,6 +1,10 @@
+require("dotenv").config();
 const spicedPg = require("spiced-pg");
 
 const { DATABASE_USERNAME, DATABASE_PASSWORD } = process.env;
+console.log(DATABASE_USERNAME);
+console.log(DATABASE_PASSWORD);
+
 const DATABASE_NAME = "imageboard";
 
 const db = spicedPg(
@@ -14,6 +18,20 @@ async function getImages() {
     return result.rows;
 }
 
+//create images function
+
+async function createImage({ url, username, title, description }) {
+    const result = await db.query(
+        `
+    INSERT INTO images (url, username, title, description)
+    VALUES ($1, $2, $3, $4)
+    RETURNING *
+  `,
+        [url, username, title, description]
+    );
+    return result.rows[0];
+}
 module.exports = {
     getImages,
+    createImage,
 };

@@ -3,24 +3,37 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="style.css">
         <title>Image Board</title>
-        <link rel="stylesheet" type="text/css" href="public/css/styles.css" media=”screen” />
     </head>
     <body>
-        <div id="main">
-            <h1>Photo Gallery</h1>
-  
-  <ul>
-    <li v-for="image of images">
-      <img v-bind:src="image.url" alt="">
-      {{ image.title }} 
-    </li>
-  </ul>
-        </div>
+        <main>
+            <h1 @click="sayHello">Imageboard</h1>
+            <section>
+            <form @submit.prevent.default="handleSubmit">
+                <label for="title">Title</label>
+                <input v-model="title" type="text" name="title" id="title" placeholder="Title">
+                <label for="title">Username</label>
+                <input v-model="username" type="text" name="username" id="username" placeholder="Username">
+                <label for="title">Description</label>
+                <input v-model="description" type="text" name="description" id="description" placeholder="Description">
+                <input type="file" name="image" id="image" accept="image/*" @change="handleChange">
+                <button>Submit</button>
+            </form>
+            </section>
+          
+           <div class="image-container">
+                <div v-for="image of images">
+                    <h2>{{image.title}}</h2>
+                    <img :src="image.url" :alt="image.title">
+                    
+                </div>
+            </div>
+        </main>
         <script
             src="/js/app.js"
             type="module"
             crossorigin="use-credentials"
         ></script>
     </body>
-</html>
+</html> 
