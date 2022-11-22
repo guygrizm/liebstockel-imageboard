@@ -1,5 +1,6 @@
 import * as Vue from "./vue.js";
 import Focus from "./focus.js";
+
 Vue.createApp({
     components: {
         focus: Focus,
@@ -20,6 +21,17 @@ Vue.createApp({
         this.images = data;
     },
     methods: {
+        async handleMoreImages() {
+            const awaitingData = await fetch(
+                `/api/images/more/${this.images[this.images.length - 1].id}`
+            );
+            const data = await awaitingData.json();
+            if (data.id === data.lowestId) {
+                this.showMoreButton = false;
+            }
+            this.images = [...this.images, ...data];
+        },
+
         handleCloseFocus() {
             this.selectedImageId = null;
         },

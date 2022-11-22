@@ -7,9 +7,13 @@
         <title>Image Board</title>
     </head>
     <body>
+        <header>
+              <!-- <input type="checkbox" id="switch" class="switch" /><label for="switch" class="toggle">Toggle</label> -->
+        </header>
         <main id="main">
               <focus v-if="selectedImageId" :id="selectedImageId" @close="handleCloseFocus"></focus>
-            <h1>Imageboard</h1>
+           
+              <h1>Imageboard</h1>
             <section>
             <form @submit.prevent.default="handleSubmit">
                 
@@ -24,14 +28,14 @@
             </form>
             </section>
           
-           <ul>
-                <li v-for="image of images" key="image.id" @click="handleImageClick(image.id)">
+         
+                <div class="layout" v-for="image of images" key="image.id" @click="handleImageClick(image.id)">
                     <img v-bind:src="image.url" class="imageBoard" :alt="image.title">
 
                     {{image.title}}
-                </li>
-            </ul>
+              
             </div>
+            <button  @click="handleMoreImages"class="more">More</button>
         </main>
         <script
             src="/js/app.js"

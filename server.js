@@ -6,7 +6,14 @@ const uidSafe = require("uid-safe");
 const app = express();
 require("dotenv").config();
 const { PORT = 8080 } = process.env;
-const { getImages, createImage, getImageById } = require("./db");
+const {
+    getImages,
+    createImage,
+    getImageById,
+    addComment,
+    getCommentsById,
+    getMoreImages,
+} = require("./db");
 const { AWS_BUCKET } = process.env;
 
 const s3upload = require("./s3");
@@ -33,6 +40,8 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
+// get images
+
 app.get("/api/images", async (req, res) => {
     const images = await getImages();
     res.json(images);
@@ -53,13 +62,38 @@ app.post("/upload", uploader.single("image"), s3upload, async (req, res) => {
         });
     }
 });
-
+// get images by id
 app.get("/api/:id", async (req, res) => {
     console.log("req params", req.params);
     const id = req.params.id;
     const image = await getImageById(id);
     res.json(image);
     console.log("image", image);
+});
+
+// get more images
+
+app.get("/api/images/more/:lowestId", async (req, res) => {
+    const { lowestId } = req.params;
+    const images = await getMoreImages(lowestId);
+    res.json(images);
+});
+
+// get comments by id
+
+app.get("/api/comments/:id", async (req, res) => {
+    const id = req.params.id;
+    const comments = await getCommentsById(id);
+    res.json(comments);
+    console.log("GET request comments", comments);
+});
+
+// add a comment
+
+app.post("/api/comment", async (req, res) => {
+    console.log("req.body", req.body);
+    await addComment({ ...req.body });
+    res.status(200).end();
 });
 
 app.get("*", (req, res) => {

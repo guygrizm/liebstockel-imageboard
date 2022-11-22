@@ -1,7 +1,13 @@
+import Comments from "./comments.js";
+
 const Focus = {
+    components: {
+        comments: Comments,
+    },
     data() {
         return {
             image: [],
+            imageId: this.id,
         };
     },
 
@@ -20,11 +26,12 @@ const Focus = {
     methods: {
         handleCloseClick() {
             this.$emit("close");
-            console.log("closeClick test");
+            console.log("closeclick test");
         },
     },
     template: `
-         <div class="focus">
+        <div class="focus">
+            
             <section>
                 <img :src="image.url" class="pop-img"/>
             </section>
@@ -35,7 +42,9 @@ const Focus = {
                 <h4>Created at: {{ image.created_at }}</h4>
                 <p>Description:</p>
                 <p>{{ image.description}}</p>
+                <comments :id="imageId"></comments>
             </section>
+            
         </div>
         
         `,

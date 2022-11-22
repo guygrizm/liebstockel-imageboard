@@ -17,7 +17,7 @@ h1 {
     margin-bottom: 40px;
 }
 
-img {
+.img {
     width: 100px;
     height: 100px;
     object-fit: cover;
@@ -25,11 +25,16 @@ img {
     align-self: center;
 }
 
-.image-container {
+.layout {
+    width: 1366px;
+    height: 768px;
+
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 10px 2em;
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
 }
+
 .pop-img {
     -webkit-filter: grayscale(100%);
     filter: grayscale(100%);
