@@ -6,8 +6,9 @@
 
 html {
     font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
 }
-main {
+main#main {
     padding: 20px;
 }
 
@@ -28,4 +29,8 @@ img {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 10px 2em;
+}
+.pop-img {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
 }

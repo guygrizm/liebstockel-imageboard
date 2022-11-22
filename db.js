@@ -31,7 +31,21 @@ async function createImage({ url, username, title, description }) {
     );
     return result.rows[0];
 }
+
+// get image by ID
+
+async function getImageById(id) {
+    const result = await db.query(
+        `
+    SELECT * FROM images
+    WHERE id = $1
+    `,
+        [id]
+    );
+    return result.rows[0];
+}
 module.exports = {
     getImages,
     createImage,
+    getImageById,
 };

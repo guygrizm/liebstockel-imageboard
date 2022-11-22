@@ -6,7 +6,7 @@ const uidSafe = require("uid-safe");
 const app = express();
 require("dotenv").config();
 const { PORT = 8080 } = process.env;
-const { getImages, createImage } = require("./db");
+const { getImages, createImage, getImageById } = require("./db");
 const { AWS_BUCKET } = process.env;
 
 const s3upload = require("./s3");
@@ -52,6 +52,14 @@ app.post("/upload", uploader.single("image"), s3upload, async (req, res) => {
             success: false,
         });
     }
+});
+
+app.get("/api/:id", async (req, res) => {
+    console.log("req params", req.params);
+    const id = req.params.id;
+    const image = await getImageById(id);
+    res.json(image);
+    console.log("image", image);
 });
 
 app.get("*", (req, res) => {

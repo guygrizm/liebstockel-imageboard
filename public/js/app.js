@@ -1,6 +1,9 @@
 import * as Vue from "./vue.js";
-
+import Focus from "./focus.js";
 Vue.createApp({
+    components: {
+        focus: Focus,
+    },
     data: function () {
         return {
             images: [],
@@ -8,6 +11,7 @@ Vue.createApp({
             username: "",
             description: "",
             image: null,
+            selectedImageId: null,
         };
     },
     mounted: async function () {
@@ -16,6 +20,15 @@ Vue.createApp({
         this.images = data;
     },
     methods: {
+        handleCloseFocus() {
+            this.selectedImageId = null;
+        },
+
+        handleImageClick(image) {
+            console.log("handle click test", image);
+            this.selectedImageId = image;
+        },
+
         handleChange(event) {
             event.preventDefault();
             console.log("handleChange running....");
@@ -42,4 +55,4 @@ Vue.createApp({
             this.images = [newImage, ...this.images];
         },
     },
-}).mount("main");
+}).mount("#main");

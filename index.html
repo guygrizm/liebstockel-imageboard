@@ -7,10 +7,12 @@
         <title>Image Board</title>
     </head>
     <body>
-        <main>
-            <h1 @click="sayHello">Imageboard</h1>
+        <main id="main">
+              <focus v-if="selectedImageId" :id="selectedImageId" @close="handleCloseFocus"></focus>
+            <h1>Imageboard</h1>
             <section>
             <form @submit.prevent.default="handleSubmit">
+                
                 <label for="title">Title</label>
                 <input v-model="title" type="text" name="title" id="title" placeholder="Title">
                 <label for="title">Username</label>
@@ -22,12 +24,13 @@
             </form>
             </section>
           
-           <div class="image-container">
-                <div v-for="image of images">
-                    <h2>{{image.title}}</h2>
-                    <img :src="image.url" :alt="image.title">
-                    
-                </div>
+           <ul>
+                <li v-for="image of images" key="image.id" @click="handleImageClick(image.id)">
+                    <img v-bind:src="image.url" class="imageBoard" :alt="image.title">
+
+                    {{image.title}}
+                </li>
+            </ul>
             </div>
         </main>
         <script
