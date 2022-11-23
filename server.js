@@ -92,8 +92,8 @@ app.get("/api/comments/:id", async (req, res) => {
 
 app.post("/api/comment", async (req, res) => {
     console.log("req.body", req.body);
-    await addComment({ ...req.body });
-    res.status(200).end();
+    const comment = await addComment({ ...req.body });
+    res.json(comment);
 });
 
 app.get("*", (req, res) => {

@@ -33,12 +33,15 @@ Vue.createApp({
         },
 
         handleCloseFocus() {
+            window.history.pushState({}, "", `/`);
             this.selectedImageId = null;
+            window.history.pushState({}, "", `/`);
         },
 
         handleImageClick(image) {
             console.log("handle click test", image);
             this.selectedImageId = image;
+            window.history.pushState({}, "", `/#${image}`);
         },
 
         handleChange(event) {

@@ -14,13 +14,14 @@ const Comments = {
     mounted: async function () {
         console.log("this id", this.id);
         const response = await fetch("/api/comments/" + this.id);
-        const data = await response.json;
+        const data = await response.json();
+        console.log("problem", data);
         this.comments = data;
     },
     methods: {
-        handleSubmitComment(event) {
-            event.preventDefault;
-            fetch("/api/comment", {
+        async handleSubmitComment(event) {
+            event.preventDefault();
+            const response = await fetch("/api/comment", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -31,6 +32,8 @@ const Comments = {
                     image_id: this.id,
                 }),
             });
+            const data = await response.json();
+            this.comments.push(data);
         },
     },
     template: `
@@ -43,9 +46,9 @@ const Comments = {
         <button type="submit">Submit</button>
     </form>
     <ul class="comments">
-        <li v-for="comment of comments">
-            <h4>{{comment.username}} says:</h4>
-            <p>{{comment.comment}}</p>
+        <li v-for="comment in comments">
+            <h4>{{comment.username}} wrote:</h4>
+            <p class="comment">{{comment.comment}}</p>
         </li>
     </ul>
     `,

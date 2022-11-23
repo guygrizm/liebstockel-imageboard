@@ -3,8 +3,8 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="stylesheet" href="style.css">
-        <title>Image Board</title>
+        <link rel="stylesheet" href="css/style.css">
+        <title>The Art Gallery</title>
     </head>
     <body>
         <header>
@@ -13,7 +13,7 @@
         <main id="main">
               <focus v-if="selectedImageId" :id="selectedImageId" @close="handleCloseFocus"></focus>
            
-              <h1>Imageboard</h1>
+              <h1>The Art Gallery</h1>
             <section>
             <form @submit.prevent.default="handleSubmit">
                 
@@ -28,14 +28,15 @@
             </form>
             </section>
           
-         
-                <div class="layout" v-for="image of images" key="image.id" @click="handleImageClick(image.id)">
+         <ul class="user-list">
+                <li v-for="image of images" key="image.id" @click="handleImageClick(image.id)">
                     <img v-bind:src="image.url" class="imageBoard" :alt="image.title">
 
                     {{image.title}}
               
-            </div>
-            <button  @click="handleMoreImages"class="more">More</button>
+                </li>
+                </ul>
+            <button @click="handleMoreImages"class="more">More</button>
         </main>
         <script
             src="/js/app.js"
