@@ -38,7 +38,7 @@ const Focus = {
          <button @click="handleCloseClick" class="closeButton desktopButton">Close</button>
            <div class="focus-content"> 
 
-            <section>
+            <section class="first">
                 <img :src="image.url" class="pop-img"/>
             </section>
             <section>

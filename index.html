@@ -36,7 +36,7 @@
               
                 </li>
                 </ul>
-            <button @click="handleMoreImages"class="more">More</button>
+            <button v-if="showMoreButton" @click="handleMoreImages"class="more">More</button>
         </main>
         <script
             src="/js/app.js"

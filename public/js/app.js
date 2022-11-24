@@ -13,6 +13,7 @@ Vue.createApp({
             description: "",
             image: null,
             selectedImageId: null,
+            showMoreButton: true,
         };
     },
     mounted: async function () {
@@ -22,14 +23,19 @@ Vue.createApp({
     },
     methods: {
         async handleMoreImages() {
+            const lowestIdOnScreen = this.images[this.images.length - 1].id;
             const awaitingData = await fetch(
-                `/api/images/more/${this.images[this.images.length - 1].id}`
+                `/api/images/more/${lowestIdOnScreen}`
             );
             const data = await awaitingData.json();
-            if (data.id === data.lowestId) {
+            console.log("data visible", data[0]);
+            const lowestIdData = data[0].lowestId;
+
+            this.images = [...this.images, ...data];
+
+            if (this.images[this.images.length - 1].id === lowestIdData) {
                 this.showMoreButton = false;
             }
-            this.images = [...this.images, ...data];
         },
 
         handleCloseFocus() {
